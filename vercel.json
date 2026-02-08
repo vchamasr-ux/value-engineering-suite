@@ -1,0 +1,14 @@
+{
+    "functions": {
+        "api/leads.js": {
+            "memory": 1024,
+            "maxDuration": 10
+        }
+    },
+    "rewrites": [
+        {
+            "source": "/api/leads",
+            "destination": "/api/leads.js"
+        }
+    ]
+}
