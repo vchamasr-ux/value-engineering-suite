@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -11,12 +11,25 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Email is required' });
     }
 
-    const resend = new Resend(process.env.RESEND_API_KEY);
+    const smtpUser = 'vchamasr@gmail.com';
+    const smtpPass = 'kxgvcrecjibdxdxs'; // Removed spaces for Gmail App Password
+
+    if (!smtpUser || !smtpPass) {
+        throw new Error("SMTP credentials are required but missing.");
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: smtpUser,
+            pass: smtpPass,
+        },
+    });
 
     try {
-        const data = await resend.emails.send({
-            from: 'Value Engineering Suite <onboarding@resend.dev>', // Update this with a verified domain if available, otherwise resend.dev for testing
-            to: ['vchamasr@gmail.com'],
+        const info = await transporter.sendMail({
+            from: `"Value Engineering Suite" <${smtpUser}>`,
+            to: 'vchamasr@gmail.com',
             subject: `New Lead: ${email} - ${intent}`,
             html: `
         <h1>New Lead Submission</h1>
@@ -31,9 +44,9 @@ export default async function handler(req, res) {
       `
         });
 
-        return res.status(200).json({ success: true, id: data.id });
+        return res.status(200).json({ success: true, messageId: info.messageId });
     } catch (error) {
         console.error('Email sending failed:', error);
-        return res.status(500).json({ error: 'Failed to send email' });
+        return res.status(500).json({ error: 'Failed to send email: ' + error.message });
     }
 }

@@ -125,9 +125,14 @@
       <div class="container">
         <h2 class="section-title">See it in Action</h2>
         <div class="screenshot-container">
-          <div class="screenshot-wrapper glass-panel">
-            <img src="/images/deal-engine-dashboard.png" alt="Deal Engine Dashboard" class="screenshot-img" />
-            <p class="caption">Deal Engine Dashboard</p>
+          <div class="screenshot-wrapper glass-panel video-trigger" data-video-id="RoACMhmBuG0">
+            <div class="img-container">
+              <img src="/images/deal-engine-dashboard.png" alt="Deal Engine Dashboard" class="screenshot-img" />
+              <div class="play-overlay">
+                <div class="play-icon">▶</div>
+              </div>
+            </div>
+            <p class="caption">See Deal Engine in Action (Video)</p>
           </div>
           <div class="screenshot-wrapper glass-panel">
             <img src="/images/value-benchmark-chart.png" alt="Value Benchmark Report" class="screenshot-img" />
@@ -269,6 +274,18 @@
       </div>
     </div>
   </footer>
+
+  <div id="video-modal" class="video-modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content glass-panel">
+      <button class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="video-wrapper">
+        <iframe id="youtube-frame" src="" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="./src/main.js"></script>
 </body>
